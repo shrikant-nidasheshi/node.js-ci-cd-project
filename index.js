@@ -1,16 +1,14 @@
 const express = require('express');
 const app = express();
-const port = 8080;
 
-// Define a route for GET requests to the root URL
+const PORT = 3000; // or use 8080 if you prefer
+
+// Route
 app.get('/', (req, res) => {
   res.send('Hello World from Express!');
 });
 
-// Start the server
-// app.listen(3000, () => {
-//   console.log(`Example app listening at `);
-// });
-app.listen(3000, '0.0.0.0', () => {
-  console.log("Server running");
+// Start server
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
 });
