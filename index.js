@@ -5,7 +5,7 @@ const PORT = 3000; // or use 8080 if you prefer
 
 // Route
 app.get('/', (req, res) => {
-  res.send('Hello World from Express! shrikant amaresh nidasheshi kobihal karnata statei in india');
+  res.send('Hello World from Express! amresh nidaasheshi');
 });
 
 // Start server
