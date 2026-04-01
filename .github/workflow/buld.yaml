@@ -33,6 +33,10 @@ jobs:
           script: |
             cd /home/ubuntu/app  # Adjust path as needed
             git pull origin main
-            npm install
-            npm start &  # Run in background
-            echo "Deployment completed"
+            sudo npm install -g pm2
+            pm2 stop all || true
+            pm2 start index.js --name node-app
+            pm2 save
+            # npm install
+            # npm start &  # Run in background
+            # echo "Deployment completed"
