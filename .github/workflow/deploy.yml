@@ -1,38 +1,42 @@
-name: CI/CD Pipeline for AWS Deployment
+name: CI/CD Pipeline
 
 on:
   push:
     branches:
-      - main
+      - main   # change if your branch is master
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
+      # 1. Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2. Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 18
 
+      # 3. Install dependencies
       - name: Install dependencies
         run: npm install
 
-      - name: Build application
-        run: npm run build || echo "No build script found"
+      # 4. Test (optional)
+      - name: Run app test
+        run: echo "No tests yet"
 
-      - name: Deploy to AWS EC2
+      # 5. Deploy to EC2
+      - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
+          username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          port: 22
           script: |
-            cd /home/ubuntu/app  # Adjust path as needed
+            cd node.js-ci-cd-project
             git pull origin main
             npm install
-            npm start &  # Run in background
-            echo "Deployment completed"
+            pm2 restart my-app || pm2 start index.js --name my-app
